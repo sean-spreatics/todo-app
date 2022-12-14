@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../styles/AddTodo.scss';
 
 const AddTodo = ({ addItem }) => {
@@ -30,7 +32,9 @@ const AddTodo = ({ addItem }) => {
         onChange={(e) => setTodoItem({ title: e.target.value })}
         onKeyPress={onEnterKeyPress}
       />
-      <button onClick={onButtonClick}>ADD</button>
+      <button onClick={onButtonClick}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../styles/Todo.scss';
 
 const Todo = ({ item, deleteItem }) => {
@@ -65,7 +67,9 @@ const Todo = ({ item, deleteItem }) => {
         onKeyPress={enterKeyEventHandler}
         readOnly={readOnly}
       />
-      <button onClick={onDeleteBtnClick}>DELETE</button>
+      <button onClick={onDeleteBtnClick}>
+        <FontAwesomeIcon icon={faTrashCan} />
+      </button>
     </div>
   );
 };
