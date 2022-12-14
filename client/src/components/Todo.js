@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import '../styles/Todo.scss';
 
 const Todo = ({ item, deleteItem }) => {
   // console.log(item); // { id: 1, title: 'todo1', done: false, }
-  const { id, done } = item;
+  const { id, title, done } = item;
   const [todoItem, setTodoItem] = useState(item);
   const [readOnly, setReadOnly] = useState(true);
 

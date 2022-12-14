@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../styles/AddTodo.scss';
 
 const AddTodo = ({ addItem }) => {
   // 사용자 입력을 저장할 객체
