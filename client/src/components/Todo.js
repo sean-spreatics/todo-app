@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const Todo = ({ item, deleteItem }) => {
   // console.log(item); // { id: 1, title: 'todo1', done: false, }
-  const { id, title, done } = item;
+  const { id, done } = item;
   const [todoItem, setTodoItem] = useState(item);
   const [readOnly, setReadOnly] = useState(true);
 
@@ -36,11 +36,13 @@ const Todo = ({ item, deleteItem }) => {
 
   // checkbox 업데이트
   // done: true -> false, fasle, -> true
-  const checkboxEventHandler = () => {
-    todoItem.done = !todoItem.done; // !true -> false, !false -> true
-    // console.log(todoItem.done);
-    // console.log(todoItem);
-    setTodoItem(todoItem);
+  const checkboxEventHandler = (e) => {
+    // rest: id, title 정보
+    const { done, ...rest } = todoItem; // { id: 1, title: 'todo1', done: false, }
+    setTodoItem({
+      done: e.target.checked,
+      ...rest,
+    });
   };
 
   return (
