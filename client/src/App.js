@@ -52,6 +52,18 @@ const App = () => {
     setTodoItems(newTodoItems);
   };
 
+  // API를 이용해서 update하려면
+  // (1) server/routes/todo.js API를 이용해 서버 데이터를 업데이트 한 후
+  // (2) 변경된 내용을 화면에 다시 출력하는 작업
+  const updateItem = async (targetItem) => {
+    console.log(targetItem);
+    // axios.patch(url, data)
+    await axios.patch(
+      `http://localhost:8080/todo/${targetItem.id}`,
+      targetItem
+    );
+  };
+
   return (
     <div className="App">
       <header>😀 Sean Todo App</header>
@@ -60,7 +72,14 @@ const App = () => {
       {todoItems.length > 0 ? (
         todoItems.map((item) => {
           // console.log(item); // {id: 1, title: 'My Todo1', done: false}
-          return <Todo key={item.id} item={item} deleteItem={deleteItem} />;
+          return (
+            <Todo
+              key={item.id}
+              item={item}
+              deleteItem={deleteItem}
+              updateItem={updateItem}
+            />
+          );
         })
       ) : (
         <p className="empty-todos">Todo를 추가해주세요🔥</p>

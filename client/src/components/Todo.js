@@ -3,7 +3,7 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../styles/Todo.scss';
 
-const Todo = ({ item, deleteItem }) => {
+const Todo = ({ item, deleteItem, updateItem }) => {
   // console.log(item); // { id: 1, title: 'todo1', done: false, }
   const { id, title, done } = item;
   const [todoItem, setTodoItem] = useState(item);
@@ -34,6 +34,7 @@ const Todo = ({ item, deleteItem }) => {
   const enterKeyEventHandler = (e) => {
     if (e.key === 'Enter') {
       setReadOnly(true);
+      updateItem(todoItem); // 수정1 (엔터 누르면 저장)
     }
   };
 
@@ -42,10 +43,12 @@ const Todo = ({ item, deleteItem }) => {
   const checkboxEventHandler = (e) => {
     // rest: id, title 정보
     const { done, ...rest } = todoItem; // { id: 1, title: 'todo1', done: false, }
-    setTodoItem({
+    const updatedItem = {
       done: e.target.checked,
       ...rest,
-    });
+    };
+    setTodoItem(updatedItem);
+    updateItem(updatedItem); // 수정2(체크박스 변경시 저장) -> 변경될 대상
   };
 
   return (
