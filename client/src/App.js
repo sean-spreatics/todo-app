@@ -20,17 +20,34 @@ const App = () => {
   // AddTodo 컴포넌트는 상위 컴포넌트(App)의 todoItems(state)에 접근 불가능
   // 상위 컴포넌트(App)은 AddTodo 컴포넌트 접근 가능
   // => App 컴포넌트에 addItem() 함수를 정의하고, 해당 함수를 AddTodo props로 넘겨야 함
-  const addItem = (newItem) => {
-    // newItem - {id: xx, title: xx, done: false}
-    newItem.id = todoId.current++; // key를 위한 id 설정
-    newItem.done = false; // done 초기화
-    // 기존 todoItems를 유지하고, 새로운 newItem을 추가
-    setTodoItems([...todoItems, newItem]); // setTodoItems(todoItems.concat(newItem))
+  const addItem = async (newItem) => {
+    // axios.post(url, data)
+
+    // [Before]
+    // // newItem - {id: xx, title: xx, done: false}
+    // newItem.id = todoId.current++; // key를 위한 id 설정
+    // newItem.done = false; // done 초기화
+    // // 기존 todoItems를 유지하고, 새로운 newItem을 추가
+    // setTodoItems([...todoItems, newItem]); // setTodoItems(todoItems.concat(newItem))
+
+    // [After]
+    const response = await axios.post('http://localhost:8080/todo', newItem);
+    // console.log(response.data);
+    // 기존 아이템: ...todoItems
+    // 새로운 아이템: response.data
+    setTodoItems([...todoItems, response.data]);
   };
 
   // 전체 Todo 리스트(todoItems)는 App 컴포넌트에서 관리하고 있으므로
   // deleteItem() 함수는 App 컴포넌트에 작성해야 함
-  const deleteItem = (targetItem) => {
+  const deleteItem = async (targetItem) => {
+    // [Before]
+    // let newTodoItems = todoItems.filter((item) => item.id !== targetItem.id);
+    // setTodoItems(newTodoItems);
+
+    // [After]
+    // console.log(targetItem); // {id:x, title: xx, done: x}
+    await axios.delete(`http://localhost:8080/todo/${targetItem.id}`);
     let newTodoItems = todoItems.filter((item) => item.id !== targetItem.id);
     setTodoItems(newTodoItems);
   };
